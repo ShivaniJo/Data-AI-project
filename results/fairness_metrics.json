@@ -1,0 +1,74 @@
+[
+  {
+    "dataset": "adult",
+    "model": "LogisticRegression",
+    "attribute": "gender",
+    "statistical_parity_difference": 0.3146419614027751,
+    "equal_opportunity_difference": 0.15353681455521673,
+    "equalised_odds_difference": 0.21228487907486387,
+    "predictive_parity_difference": 0.004782400765184103
+  },
+  {
+    "dataset": "adult",
+    "model": "LogisticRegression",
+    "attribute": "race",
+    "statistical_parity_difference": 0.2758609002169197,
+    "equal_opportunity_difference": 0.2947131608548932,
+    "equalised_odds_difference": 0.2947131608548932,
+    "predictive_parity_difference": 0.25555555555555554
+  },
+  {
+    "dataset": "adult",
+    "model": "RandomForest",
+    "attribute": "gender",
+    "statistical_parity_difference": 0.17612609988252845,
+    "equal_opportunity_difference": 0.08522549477681995,
+    "equalised_odds_difference": 0.08522549477681995,
+    "predictive_parity_difference": 0.02491191439384044
+  },
+  {
+    "dataset": "adult",
+    "model": "RandomForest",
+    "attribute": "race",
+    "statistical_parity_difference": 0.17438313449023862,
+    "equal_opportunity_difference": 0.26801557124751035,
+    "equalised_odds_difference": 0.26801557124751035,
+    "predictive_parity_difference": 0.11764705882352944
+  },
+  {
+    "dataset": "loan",
+    "model": "LogisticRegression",
+    "attribute": "Gender",
+    "statistical_parity_difference": 0.2582928224192165,
+    "equal_opportunity_difference": 0.19059929494712102,
+    "equalised_odds_difference": 0.286626746506986,
+    "predictive_parity_difference": 0.0861884368308351
+  },
+  {
+    "dataset": "loan",
+    "model": "LogisticRegression",
+    "attribute": "Race",
+    "statistical_parity_difference": 0.4673311184939092,
+    "equal_opportunity_difference": 0.5096726190476191,
+    "equalised_odds_difference": 0.5096726190476191,
+    "predictive_parity_difference": 0.2711538461538462
+  },
+  {
+    "dataset": "loan",
+    "model": "RandomForest",
+    "attribute": "Gender",
+    "statistical_parity_difference": 0.24613954818415784,
+    "equal_opportunity_difference": 0.15102232667450055,
+    "equalised_odds_difference": 0.34570858283433137,
+    "predictive_parity_difference": 0.09730396810328457
+  },
+  {
+    "dataset": "loan",
+    "model": "RandomForest",
+    "attribute": "Race",
+    "statistical_parity_difference": 0.19931104773664965,
+    "equal_opportunity_difference": 0.21279761904761907,
+    "equalised_odds_difference": 0.38345864661654133,
+    "predictive_parity_difference": 0.1696774193548387
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "accuracy": 0.8088446052003003,
+    "precision": 0.5679845708775313,
+    "recall": 0.8399885909868796,
+    "f1": 0.6777125762282822,
+    "roc_auc": 0.9070564341864881,
+    "dataset": "adult",
+    "model": "LogisticRegression"
+  },
+  {
+    "accuracy": 0.8564799017266089,
+    "precision": 0.7404868015083991,
+    "recall": 0.6160867084997148,
+    "f1": 0.6725829051844933,
+    "roc_auc": 0.9047554536326274,
+    "dataset": "adult",
+    "model": "RandomForest"
+  },
+  {
+    "accuracy": 0.6226666666666667,
+    "precision": 0.6892605633802817,
+    "recall": 0.6121970289288506,
+    "f1": 0.6484472049689441,
+    "roc_auc": 0.6736653007587512,
+    "dataset": "loan",
+    "model": "LogisticRegression"
+  },
+  {
+    "accuracy": 0.6266666666666667,
+    "precision": 0.6411575562700965,
+    "recall": 0.7795152462861611,
+    "f1": 0.7035991531404375,
+    "roc_auc": 0.648298707876342,
+    "dataset": "loan",
+    "model": "RandomForest"
+  }
+]
