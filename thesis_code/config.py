@@ -1,8 +1,4 @@
-"""Configuration module for the thesis project.
-
-This module centralises configurable settings such as dataset metadata, file system paths and model hyper‑parameters. 
-Editing values here allows the rest of the codebase to remain clean and readable. If you add new datasets or change filenames,
- update this dictionary accordingly.-"""
+"""Configuration module for the thesis project."""
 
 from pathlib import Path
 
@@ -17,10 +13,9 @@ RESULTS_DIR = Path(__file__).resolve().parents[1] / "results"
 # Directory where generated figures will be stored.
 FIGURES_DIR = RESULTS_DIR / "figures"
 
-# Metadata for each dataset used in the thesis. The keys represent
-# dataset identifiers, and each value contains information needed
-# the target column name, and the list of protected attributes to
-# assess fairness on. Add or modify entries as needed.
+# Metadata for each dataset used in the thesis. The keys represent dataset identifiers, and each value contains information needed
+# the target column name, and the list of protected attributes to assess fairness on. Add or modify entries as needed.
+
 DATASET_INFO = {
     # UCI Adult Income dataset. "income" column contains the target
     # classes "<=50K" and ">50K" and will be automatically mapped to 0/1.
