@@ -1,11 +1,9 @@
 """Data loading and preprocessing utilities.
 
 This module defines functions to load tabular datasets from CSV files,
-handle missing values, encode categorical variables, scale numeric
-features and split the data into training and test sets. It relies on
-pandas for I/O and scikit‑learn for preprocessing. The metadata for
-each dataset (file names, targets and protected attributes) is
-defined in `config.py`.
+handle missing values, encode categorical variables, scale numeric features and split the data into training and test sets. 
+It relies on pandas for I/O and scikit‑learn for preprocessing.
+The metadata for each dataset (file names, targets and protected attributes) is defined in `config.py`.
 """
 
 from __future__ import annotations
@@ -23,10 +21,8 @@ from . import config
 def _build_preprocessor(df: pd.DataFrame, target: str) -> ColumnTransformer:
     """Construct a ColumnTransformer for the given dataframe.
 
-    The preprocessor imputes missing values, one‑hot encodes
-    categorical features and scales numerical features. It
-    automatically determines which columns are numeric and which are
-    categorical based on pandas dtypes. The target column is
+    The preprocessor imputes missing values, one‑hot encodes categorical features and scales numerical features. 
+    It automatically determines which columns are numeric and which are categorical based on pandas dtypes. The target column is
     excluded from preprocessing.
 
     Parameters
@@ -67,12 +63,9 @@ def _build_preprocessor(df: pd.DataFrame, target: str) -> ColumnTransformer:
 def load_and_preprocess(name: str, test_size: float = 0.3, random_state: int = 42):
     """Load a dataset by name and prepare train/test splits.
 
-    This function reads the dataset CSV file specified in
-    `config.DATASET_INFO`, constructs a preprocessing pipeline
-    appropriate for the feature types, fits the preprocessor on
-    training data and transforms both training and test sets. The
-    test split is stratified on the target to preserve class
-    distribution.
+    This function reads the dataset CSV file specified in  `config.DATASET_INFO`, constructs a preprocessing pipeline
+    appropriate for the feature types, fits the preprocessor on training data and transforms both training and test sets.
+     The test split is stratified on the target to preserve class distribution.
 
     Parameters
     ----------
