@@ -1,15 +1,12 @@
 """Command‑line entry point for running the thesis analysis pipeline.
 
-This script orchestrates loading datasets, training models, computing
-performance and fairness metrics and saving plots and CSV outputs.
-It can be executed directly (``python -m thesis_code.main``) to
-process all datasets defined in ``config.DATASET_INFO``.
+This script orchestrates loading datasets, training models, computing performance and fairness metrics and saving plots and CSV outputs.
+It can be executed directly ("python -m thesis_code.main") to process all datasets defined in "config.DATASET_INFO".
 
 Usage:
     python -m thesis_code.main
 
-Outputs are saved into the directories defined in ``config.py``.
-"""
+Outputs are saved into the directories defined in "config.py" """
 
 from __future__ import annotations
 
@@ -23,7 +20,7 @@ from . import config, data_loader, models, evaluation, plot_utils
 
 
 def run_pipeline():
-    """Run training and evaluation for all datasets and models."""
+    
     # Prepare containers for aggregated results
     overall_metrics = []
     overall_fairness = []
@@ -81,7 +78,7 @@ def run_pipeline():
 
 
 def _write_dicts_to_csv(dict_list, path: Path):
-    """Helper to write a list of dictionaries to a CSV file."""
+   
     if not dict_list:
         return
     fieldnames = list(dict_list[0].keys())
