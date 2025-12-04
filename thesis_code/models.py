@@ -1,10 +1,7 @@
 """Model training utilities.
 
-This module provides simple wrappers for fitting scikit‑learn
-classifiers used in the thesis. It also exposes helpers to
-extract feature importances from fitted models and to build
-pipelines combining preprocessing with estimators.
-"""
+This module provides simple wrappers for fitting scikit‑lear classifiers used in the thesis. It also exposes helpers to
+extract feature importances from fitted models and to build pipelines combining preprocessing with estimators."""
 
 from __future__ import annotations
 
@@ -19,10 +16,8 @@ from sklearn.pipeline import Pipeline
 def train_logistic_regression(X_train, y_train, **kwargs) -> LogisticRegression:
     """Train a logistic regression classifier.
 
-    The classifier uses L2 regularisation and the saga solver for
-    efficiency. Class weights are balanced by default to handle
-    imbalanced datasets. Additional keyword arguments are passed to
-    the scikit‑learn constructor.
+    The classifier uses L2 regularisation and the saga solver for efficiency. Class weights are balanced by default to handle
+    imbalanced datasets. Additional keyword arguments are passed tothe scikit‑learn constructor.
 
     Returns
     -------
@@ -45,9 +40,7 @@ def train_logistic_regression(X_train, y_train, **kwargs) -> LogisticRegression:
 def train_random_forest(X_train, y_train, **kwargs) -> RandomForestClassifier:
     """Train a random forest classifier.
 
-    By default, the forest uses 200 trees and balances class
-    weights. Additional hyperparameters can be supplied via
-    kwargs.
+    By default, the forest uses 200 trees and balances class weights. Additional hyperparameters can be supplied via kwargs.
 
     Returns
     -------
@@ -69,11 +62,8 @@ def train_random_forest(X_train, y_train, **kwargs) -> RandomForestClassifier:
 def get_feature_names(preprocessor) -> List[str]:
     """Retrieve the transformed feature names from a ColumnTransformer.
 
-    This helper extracts feature names from the fitted preprocessor by
-    querying the underlying transformers. Numeric column names are
-    returned as is; categorical columns are expanded to include
-    one‑hot encoded categories.
-    """
+    This helper extracts feature names from the fitted preprocessor by querying the underlying transformers. Numeric column names are
+    returned as is; categorical columns are expanded to include one‑hot encoded categories."""
     feature_names = []
     for name, transformer, cols in preprocessor.transformers_:
         if name == 'remainder':
@@ -96,11 +86,8 @@ def get_feature_names(preprocessor) -> List[str]:
 def get_feature_importance(model, feature_names: List[str]) -> List[Tuple[str, float]]:
     """Compute feature importance for a fitted model.
 
-    For logistic regression, the absolute value of the coefficient is
-    used as importance. For random forests, the `feature_importances_`
-    attribute is used. Returns a list of (feature_name, importance)
-    sorted in descending order of importance.
-    """
+    For logistic regression, the absolute value of the coefficient is used as importance. For random forests, the `feature_importances_`
+    attribute is used. Returns a list of (feature_name, importance)sorted in descending order of importance."""
     if hasattr(model, 'coef_'):
         # Logistic regression: model.coef_ is shape (1, n_features)
         importances = np.abs(model.coef_[0])
