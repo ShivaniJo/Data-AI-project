@@ -1,8 +1,6 @@
 """Model evaluation functions.
 
-This module encapsulates evaluation logic for classification models,
-including standard performance metrics and group fairness metrics.
-"""
+This module encapsulates evaluation logic for classification models,including standard performance metrics and group fairness metrics."""
 
 from __future__ import annotations
 
@@ -15,12 +13,8 @@ from . import fairness, config
 
 
 def evaluate_model(model, X_test, y_test) -> Dict[str, float]:
-    """Compute standard performance metrics for a classifier.
-
-    Returns a dictionary containing accuracy, precision, recall,
-    F1 and ROC‑AUC scores. For ROC‑AUC, the positive class is
-    assumed to be encoded as 1.
-    """
+    """Compute standard performance metrics for a classifier.Returns a dictionary containing accuracy, precision, recall,F1 and 
+    ROC‑AUC scores. For ROC‑AUC, the positive class is assumed to be encoded as 1."""
     y_pred = model.predict(X_test)
     # Some metrics require probability estimates
     try:
