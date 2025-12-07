@@ -11,10 +11,11 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
+from sklearn.metrics import accuracy_score
 
 
-def train_logistic_regression(X_train, y_train, **kwargs) -> LogisticRegression:
-    """Train a logistic regression classifier.
+"""def train_logistic_regression(X_train, y_train, **kwargs) -> LogisticRegression:
+    Train a logistic regression classifier.
 
     The classifier uses L2 regularisation and the saga solver for efficiency. Class weights are balanced by default to handle
     imbalanced datasets. Additional keyword arguments are passed tothe scikit‑learn constructor.
@@ -23,7 +24,7 @@ def train_logistic_regression(X_train, y_train, **kwargs) -> LogisticRegression:
     -------
     LogisticRegression
         The fitted logistic regression model.
-    """
+    
     params = {
         'penalty': 'l2',
         'solver': 'saga',
@@ -35,10 +36,14 @@ def train_logistic_regression(X_train, y_train, **kwargs) -> LogisticRegression:
     model = LogisticRegression(**params)
     model.fit(X_train, y_train)
     return model
+"""
+def train_logistic_regression(X_train, y_train):
+    model = LogisticRegression(max_iter=200)
+    model.fit(X_train, y_train)
+    return model
 
-
-def train_random_forest(X_train, y_train, **kwargs) -> RandomForestClassifier:
-    """Train a random forest classifier.
+"""def train_random_forest(X_train, y_train, **kwargs) -> RandomForestClassifier:
+    Train a random forest classifier.
 
     By default, the forest uses 200 trees and balances class weights. Additional hyperparameters can be supplied via kwargs.
 
@@ -46,7 +51,7 @@ def train_random_forest(X_train, y_train, **kwargs) -> RandomForestClassifier:
     -------
     RandomForestClassifier
         The fitted random forest model.
-    """
+    
     params = {
         'n_estimators': 200,
         'n_jobs': -1,
@@ -57,11 +62,14 @@ def train_random_forest(X_train, y_train, **kwargs) -> RandomForestClassifier:
     model = RandomForestClassifier(**params)
     model.fit(X_train, y_train)
     return model
-
+"""
+def train_random_forest(X_train, y_train):
+    model = RandomForestClassifier(n_estimators=200, random_state=42)
+    model.fit(X_train, y_train)
+    return model
 
 def get_feature_names(preprocessor) -> List[str]:
     """Retrieve the transformed feature names from a ColumnTransformer.
-
     This helper extracts feature names from the fitted preprocessor by querying the underlying transformers. Numeric column names are
     returned as is; categorical columns are expanded to include one‑hot encoded categories."""
     feature_names = []
@@ -97,3 +105,8 @@ def get_feature_importance(model, feature_names: List[str]) -> List[Tuple[str, f
         raise ValueError("Model type does not support feature importance extraction")
     pairs = list(zip(feature_names, importances))
     return sorted(pairs, key=lambda x: x[1], reverse=True)
+
+def evaluate_model(model, X_test, y_test):
+    preds = model.predict(X_test)
+    accuracy = accuracy_score(y_test, preds)
+    return accuracy, preds
