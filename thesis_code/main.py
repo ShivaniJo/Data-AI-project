@@ -13,7 +13,6 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 import json
-
 import numpy as np
 
 from . import config, data_loader, models, evaluation, plot_utils
@@ -64,30 +63,47 @@ def run_pipeline():
                     'attribute': attr,
                     **metrics,
                 })
-    # Save aggregated metrics to CSV
-    metrics_csv = config.RESULTS_DIR / "performance_metrics.csv"
-    fairness_csv = config.RESULTS_DIR / "fairness_metrics.csv"
-    _write_dicts_to_csv(overall_metrics, metrics_csv)
-    _write_dicts_to_csv(overall_fairness, fairness_csv)
-    # Also save as JSON for convenience
-    with open(config.RESULTS_DIR / "performance_metrics.json", "w") as f:
-        json.dump(overall_metrics, f, indent=2)
-    with open(config.RESULTS_DIR / "fairness_metrics.json", "w") as f:
-        json.dump(overall_fairness, f, indent=2)
-    print(f"Analysis complete. Results saved to {config.RESULTS_DIR}")
+                
+                # === Group-specific fairness analysis ===
+            from .fairness import group_fairness_metrics
+
+            y_pred = model.predict(X_test)
+            protected_attribute = df_test["sex"].values  # or "race"
+
+            fairness_group_df = group_fairness_metrics(
+            y_true=y_test.values,
+            y_pred=y_pred,
+            protected_attribute=protected_attribute
+            )
+
+            fairness_output_path = config.RESULTS_DIR / f"{dataset_name}_{model_name}_group_fairness.csv"
+            fairness_group_df.to_csv(fairness_output_path)
+            print(f"Saved group fairness metrics to {fairness_output_path}")
 
 
-def _write_dicts_to_csv(dict_list, path: Path):
+            metrics_csv = config.RESULTS_DIR / "performance_metrics.csv"
+            fairness_csv = config.RESULTS_DIR / "fairness_metrics.csv"
+            _write_dicts_to_csv(overall_metrics, metrics_csv)
+            _write_dicts_to_csv(overall_fairness, fairness_csv)
+    
+            with open(config.RESULTS_DIR / "performance_metrics.json", "w") as f:
+                json.dump(overall_metrics, f, indent=2)
+            with open(config.RESULTS_DIR / "fairness_metrics.json", "w") as f:
+                json.dump(overall_fairness, f, indent=2)
+            print(f"Analysis complete. Results saved to {config.RESULTS_DIR}")
+
+
+            def _write_dicts_to_csv(dict_list, path: Path):
    
-    if not dict_list:
-        return
-    fieldnames = list(dict_list[0].keys())
-    with open(path, "w", newline="") as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in dict_list:
-            writer.writerow(row)
+                if not dict_list:
+                 return
+                 fieldnames = list(dict_list[0].keys())
+                with open(path, "w", newline="") as csvfile:
+                    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                    writer.writeheader()
+                for row in dict_list:
+                    writer.writerow(row)
 
 
-if __name__ == "__main__":
-    run_pipeline()
+                    if __name__ == "__main__":
+                     run_pipeline()
