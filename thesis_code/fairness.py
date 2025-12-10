@@ -3,52 +3,58 @@ This module provides functions to compute common group fairness metrics for bina
 parity difference, equal opportunity difference, equalised odds difference and predictive parity difference. These metrics help
 evaluate disparities across groups defined by sensitive attributes."""
 
-from __future__ import annotations
-
 import numpy as np
 import pandas as pd
-from typing import Dict
 from sklearn.metrics import confusion_matrix, precision_score
-from fairness import group_fairness_metrics
 
+def group_fairness_metrics(y_true, y_pred, protected_attribute):
+    """
+    Computes group-specific fairness metrics for each protected group.
+    """
 
-def group_fairness_metrics(y_true, y_pred, protected_attribute): #Computes group-specific fairness metrics for each protected group.
-
-      results = {}  # dictionary to store metrics for each group
+    results = {}  # dictionary to store metrics for each group
     groups = np.unique(protected_attribute)  # find unique groups (e.g. male/female)
-   
-for group in groups:
-        
-        fairness_df = group_fairness_metrics(
-    y_test.values,      # actual values
-    y_pred,             # predicted values
-    protected_attribute # sensitive attribute
-)
- 
-        idx = (protected_attribute == group) #select rows
-        y_true_g = y_true[idx] 
+
+    for group in groups:
+        # Select rows for this group
+        idx = (protected_attribute == group)
+
+        y_true_g = y_true[idx]
         y_pred_g = y_pred[idx]
 
-        tn, fp, fn, tp = confusion_matrix(y_true_g, y_pred_g, labels=[0, 1]).ravel() #confusion matrix for this group
+        # Confusion matrix for this group
+        tn, fp, fn, tp = confusion_matrix(y_true_g, y_pred_g, labels=[0, 1]).ravel()
 
-        base_rate = y_true_g.mean() #base rate real positive
-        positive_rate = y_pred_g.mean() #positive prediction rate
-        tpr = tp / (tp + fn) if tp + fn > 0 else 0 #true positive rate
-        fpr = fp / (fp + tn) if fp + tn > 0 else 0 #false positive rate
+        # Base Rate (actual positive rate)
+        base_rate = y_true_g.mean()
+
+        # Positive Prediction Rate
+        positive_rate = y_pred_g.mean()
+
+        # True Positive Rate
+        tpr = tp / (tp + fn) if (tp + fn) > 0 else 0
+
+        # False Positive Rate
+        fpr = fp / (fp + tn) if (fp + tn) > 0 else 0
+
+        # Precision
         precision = precision_score(y_true_g, y_pred_g, zero_division=0)
 
+        # Store metrics for this group
         results[group] = {
-            "TN": tn, "FP": fp, "FN": fn, "TP": tp,
+            "TN": tn,
+            "FP": fp,
+            "FN": fn,
+            "TP": tp,
             "Base Rate": base_rate,
             "Positive Rate": positive_rate,
             "TPR": tpr,
             "FPR": fpr,
             "Precision": precision
-        } #store metrics 
+        }
 
     return pd.DataFrame(results).T
 
-protected_attribute = df["sex"].values   # or "race"
 
 
 
