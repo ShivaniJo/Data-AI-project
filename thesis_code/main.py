@@ -55,7 +55,7 @@ def run_pipeline():
                 filename=str(fi_filename),
             )
             # Fairness metrics per protected attribute
-            fairness_results = evaluation.evaluate_fairness(model, X_test, y_test, df_test, dataset_name)
+            fairness_results = evaluation.evaluate_fairness(model, X_test, y_test, df_test, dataset_name, )
             for attr, metrics in fairness_results.items():
                 overall_fairness.append({
                     'dataset': dataset_name,
